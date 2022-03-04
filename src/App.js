@@ -12,20 +12,31 @@ class App extends Component {
     };
   }
 
-  criarNovaNota(titulo, nota) {
-    const novaNota = { titulo, nota };
+  criarNovaNota(titulo, texto) {
+    const novaNota = { titulo, texto };
     const novoArrayNotas = [...this.state.notas, novaNota];
 
     this.setState({ notas: novoArrayNotas });
 
-    console.log(`NOTA FOI CRIADA COM TITULO ${titulo} E CONTEUDO ${nota}`);
+    console.log(`NOTA FOI CRIADA COM TITULO ${titulo} E CONTEUDO ${texto}`);
+  }
+
+  deletarNota(index) {
+    let arrayNotas = this.state.notas;
+    arrayNotas.splice(index, 1);
+    this.setState({ notas: arrayNotas });
+
+    console.log("deletada");
   }
 
   render() {
     return (
       <section className="conteudo">
         <FormularioCadastro criarNota={this.criarNovaNota.bind(this)} />
-        <ListaDeNotas notas={this.state.notas} />
+        <ListaDeNotas
+          notas={this.state.notas}
+          deletarNota={this.deletarNota.bind(this)}
+        />
       </section>
     );
   }
